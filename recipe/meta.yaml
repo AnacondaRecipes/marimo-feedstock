@@ -20,7 +20,7 @@ requirements:
   host:
     - python
     - pip
-    - uv-build
+    - uv-build >=0.8.3,<=0.9
   run:
     - python
     - click >=8.0,<9
@@ -79,6 +79,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - marimo --help
+    - marimo --version
 
 about:
   summary: A library for making reactive notebooks and apps
