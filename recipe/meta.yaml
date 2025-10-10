@@ -1,0 +1,110 @@
+{% set name = "marimo" %}
+{% set version = "0.16.5" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 8f5939d3c4e67ff25f6cfeefe731971ed7f3346c20098034b923a24a0d7770d6
+
+build:
+  number: 0
+  skip: true  # [py<39]
+  entry_points:
+    - marimo = marimo._cli.cli:main
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+
+requirements:
+  host:
+    - python
+    - pip
+    - uv-build >=0.8.3,<=0.9
+  run:
+    - python
+    - click >=8.0,<9
+    - jedi >=0.18.0
+    - markdown >=3.6,<4
+    - pymdown-extensions >=10.15,<11
+    - pygments >=2.13,<3
+    - tomlkit >=0.12.0
+    - pyyaml >=6.0
+    - uvicorn >=0.22.0,<0.36.0
+    - starlette >=0.35.0,!=0.36.0
+    - websockets >=14.2.0
+    - loro >=1.5.0                # [py>=311]
+    - typing-extensions >=4.4.0   # [py<311]
+    - docutils >=0.16.0
+    - psutil >=5.0
+    - itsdangerous >=2.0.0
+    - narwhals >=2.0.0
+    - packaging
+    - msgspec >=0.19.0
+  run_constrained:
+    - duckdb >=1.0.0
+    - altair >=5.4.0
+    - polars >=1.9.0
+    - sqlglot >=26.2.0
+    - openai >=1.55.3
+    - nbformat >=5.7.0
+
+test:
+  imports:
+    - marimo
+    - marimo._ai
+    - marimo._ast
+    - marimo._cli
+    - marimo._config
+    - marimo._convert
+    - marimo._data
+    - marimo._dependencies
+    - marimo._entrypoints
+    - marimo._islands
+    - marimo._lint
+    - marimo._loggers
+    - marimo._mcp
+    - marimo._messaging
+    - marimo._output
+    - marimo._plugins
+    - marimo._pyodide
+    - marimo._runtime
+    - marimo._save
+    - marimo._schemas
+    - marimo._secrets
+    - marimo._server
+    - marimo._snippets
+    - marimo._sql
+    - marimo._tracer
+    - marimo._tutorials
+    - marimo._types
+    - marimo._utils
+    - marimo._version
+  requires:
+    - pip
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - marimo --help
+    - marimo --version
+
+about:
+    home: https://marimo.io
+    license: Apache-2.0
+    license_family: Apache
+    license_file:
+      - LICENSE
+      - marimo/third_party.txt
+      - marimo/third_party_licenses.txt
+    summary: A library for making reactive notebooks and apps
+    description: |
+        A reactive Python notebook that's reproducible, git-friendly,
+        and deployable as scripts or apps
+    doc_url: https://docs.marimo.io
+    dev_url: https://github.com/marimo-team/marimo
+
+extra:
+  recipe-maintainers:
+    - mscolnick
+    - akshayka
+    - mfansler
