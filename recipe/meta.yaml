@@ -45,10 +45,8 @@ requirements:
     - duckdb >=1.0.0
     - altair >=5.4.0
     - polars >=1.9.0
-    - pyarrow
     - sqlglot >=26.2.0
     - openai >=1.55.3
-    - ruff
     - nbformat >=5.7.0
 
 test:
