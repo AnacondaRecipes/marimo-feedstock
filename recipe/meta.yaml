@@ -10,7 +10,7 @@ source:
   sha256: 8f5939d3c4e67ff25f6cfeefe731971ed7f3346c20098034b923a24a0d7770d6
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<39]
   entry_points:
     - marimo = marimo._cli.cli:main
