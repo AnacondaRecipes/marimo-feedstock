@@ -27,6 +27,7 @@ build:
     - /lib64/libc.so.6  # [linux]
     - /lib64/libm.so.6  # [linux]
     - $RPATH/ld-linux-aarch64.so.1  # [linux]
+    - /lib64/ld-linux-aarch64.so.1  # [linux]
   skip: true  # [py<310]
 
 requirements:
